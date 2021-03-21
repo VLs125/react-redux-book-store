@@ -3,8 +3,8 @@ import BookListItem from '../book-list-item/book-list-item';
 import './book-list'
 import { connect } from 'react-redux';
 import withBookstoreService from '../hoc/with-bookstore-service'
-import {bindActionCreators} from 'redux';
 import {booksLoaded} from '../../actions'
+import compose from '../../utils'
 const BookList = (props) => {
     
     useEffect(() => {
@@ -16,7 +16,6 @@ const BookList = (props) => {
 
     const {books} = props
     return (
-        
         <ul>
             {  
                 books.map((book) => {
@@ -32,10 +31,11 @@ const BookList = (props) => {
 const mapStateToProps = ({ books }) => {
     return { books }
 }
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-        booksLoaded,
-    },dispatch)
+const mapDispatchToProps = {
+    booksLoaded
 }
 
-export default withBookstoreService()(connect(mapStateToProps, mapDispatchToProps)(BookList))
+export default compose(
+    withBookstoreService(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(BookList)
