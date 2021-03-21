@@ -8,7 +8,22 @@ import compose from '../../utils'
 import './book-list.css'
 import Spinner from '../spinner/spinner';
 import ErrorIndicator from '../error-inidicator/error-inicator';
-const BookList = (props) => {
+
+const BookList =({books})=>{
+    return (
+        <ul className="book-list">
+            {
+                books.map((book) => {
+                    return (
+                        <li key={book.id}><BookListItem book={book} /></li>
+                    )
+                })
+            }
+        </ul>
+    )
+}
+
+const BookListContainer = (props) => {
     const { fetchBooks } = props
 
     useEffect(() => {
@@ -23,18 +38,11 @@ const BookList = (props) => {
     if (error) {
         return <ErrorIndicator />
     }
-    return (
-        <ul className="book-list">
-            {
-                books.map((book) => {
-                    return (
-                        <li key={book.id}><BookListItem book={book} /></li>
-                    )
-                })
-            }
-        </ul>
-    )
+
+    return(<BookList books={books}/>)
+
 }
+
 
 const mapStateToProps = ({ books, loading, error }) => {
     return { books, loading, error }
@@ -49,4 +57,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 export default compose(
     withBookstoreService(),
     connect(mapStateToProps, mapDispatchToProps)
-)(BookList)
+)(BookListContainer)

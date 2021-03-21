@@ -13,14 +13,14 @@ const reducer = (state = initialState, action)=>{
                 loading:true,
                 error:null,
         };
-        case 'BOOKS_LOADED':
+        case 'FETCH_BOOKS_SUCCESS':
             return {
                 books:action.payload,
                 loading:false,
                 error:null
             };
 
-        case 'BOOKS_ERROR':
+        case 'FETCH_BOOKS_FAILURE':
             return {
                 books:[],
                 loading:false,
