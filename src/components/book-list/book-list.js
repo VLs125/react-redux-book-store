@@ -5,18 +5,21 @@ import { connect } from 'react-redux';
 import withBookstoreService from '../hoc/with-bookstore-service'
 import {booksLoaded} from '../../actions'
 import compose from '../../utils'
+import './book-list.css'
 const BookList = (props) => {
     
     useEffect(() => {
-        const {bookstoreService} = props
-        const data = bookstoreService.getBooks();
-        props.booksLoaded(data);
+        const {bookstoreService,booksLoaded} = props
+        bookstoreService.getBooks()
+        .then((data)=>{
+            booksLoaded(data);
+        })
 
     }, [])
 
     const {books} = props
     return (
-        <ul>
+        <ul className="book-list">
             {  
                 books.map((book) => {
                     return (

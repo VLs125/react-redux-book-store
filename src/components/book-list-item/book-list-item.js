@@ -1,12 +1,21 @@
 import React from 'react'
+import './book-list-item.css'
 
 const BookListItem = ({book}) =>{
-    const {title, author} = book;
+    const {title, author,price,coverImage} = book;
 
     return (
-        <div>
-            <p>{title}</p>
-            <p>{author}</p>
+        <div className='book-list-item'>
+            <div className="book-cover">
+                <img src={coverImage} alt ="cover"/>
+            </div>
+            <div className="book-details">
+            <a href = "#" className="book-title">{title}</a>
+            <div className="book-author">{author}</div>
+            <div className="book-price"><i className="fas fa-ruble-sign"></i>{price}</div>
+            <button className="btn btn-info add-to-cart">Добавить в корзину</button>
+            </div>
+
         </div>
     )
 }
