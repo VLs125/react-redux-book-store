@@ -13,9 +13,10 @@ export default class BookstoreService {
     ];
 
     getBooks(){
-        return new Promise((resolve)=> {
+        return new Promise((resolve,reject)=> {
             setTimeout(()=>{
                 resolve(this.data)
+                reject(new Error('Sos'))
             },700)
 
         })
