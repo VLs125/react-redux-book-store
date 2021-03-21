@@ -6,6 +6,7 @@ import withBookstoreService from '../hoc/with-bookstore-service'
 import {booksLoaded} from '../../actions'
 import compose from '../../utils'
 import './book-list.css'
+import Spinner from '../spinner/spinner';
 const BookList = (props) => {
     
     useEffect(() => {
@@ -17,7 +18,10 @@ const BookList = (props) => {
 
     }, [])
 
-    const {books} = props
+    const {books,loading} = props
+    if(loading){
+        return <Spinner/>
+    }
     return (
         <ul className="book-list">
             {  
@@ -31,8 +35,8 @@ const BookList = (props) => {
     )
 }
 
-const mapStateToProps = ({ books }) => {
-    return { books }
+const mapStateToProps = ({ books,loading }) => {
+    return { books,loading }
 }
 const mapDispatchToProps = {
     booksLoaded
