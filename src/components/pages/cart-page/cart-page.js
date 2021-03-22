@@ -1,9 +1,13 @@
 import React from 'react';
+import ShoppingCartTable from '../../shopping-cart-table/shopping-cart-table';
 
 
 const CartPage = ()=>{
+
     return(
-        <div>Cart page</div>)
+        <React.Fragment>
+            <ShoppingCartTable/>
+        </React.Fragment>)
 }
 
 export default CartPage
