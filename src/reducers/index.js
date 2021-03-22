@@ -2,25 +2,47 @@ const initialState = {
     books: [],
     loading: true,
     error: null,
-    cartItems: [
-        // {
-        //     id: 1,
-        //     title: 'Books 1',
-        //     count: 3,
-        //     total: 150,
-
-        // },
-        // {
-        //     id: 2,
-        //     title: 'Books 2',
-        //     count: 1,
-        //     total: 50,
-
-        // },
-
-    ],
-    orderTotal: 200
+    cartItems: [],
+    orderTotal: 0
 }
+
+const updateCartItems = (cartItems, item, idx) => {
+
+    if (idx === -1) {
+        return [
+            ...cartItems,
+            item
+        ]
+    }
+
+    return [
+        ...cartItems.slice(0, idx),
+        item,
+        ...cartItems.slice(idx + 1)
+    ]
+
+
+}
+
+const updateItem = (book,item={})=>{
+
+    const {
+        id = book.id,
+        count = 0,
+        title = book.title,
+        total = 0} = item
+
+        return {
+            id,
+            title,
+            count:count+1,
+            total:total + book.price
+        }
+    }
+
+
+   
+    
 
 const reducer = (state = initialState, action) => {
     console.log(action.type);
@@ -53,26 +75,15 @@ const reducer = (state = initialState, action) => {
         case 'BOOK_ADDED_TO_CART':
             const bookId = action.payload;
             const book = state.books.find((book) => book.id === bookId);
-            if(state.cartItems.length<=0){
-                console.log('no items')
-            }
-            else{console.log(state.cartItems[state.cartItems.length-1].id)}
-            
-
-            const newItem = {
-                id: bookId,
-                title: book.title,
-                count: 1,
-                total: book.price,
-
-            }
+            const itemIndex = state.cartItems.findIndex(({ id }) => id === bookId);
+            const item = state.cartItems[itemIndex]
+           const newItem = updateItem(book,item);
             return {
                 ...state,
-                cartItems: [
-                    ...state.cartItems,
-                    newItem
-                ]
+                cartItems: updateCartItems(state.cartItems, newItem, itemIndex)
             };
+
+
 
         default:
             return state;
