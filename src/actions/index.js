@@ -33,13 +33,6 @@ export const bookRemoveFromCart = (bookId) => {
     };
 
 }
-export const bookIncreaseInCart = (bookId) => {
-    return {
-        type: 'BOOK_INCREASE_IN_CART',
-        payload: bookId,
-    };
-
-}
 export const bookDecreaseInCart = (bookId) => {
     return {
         type: 'BOOK_DECREASE_IN_CART',
